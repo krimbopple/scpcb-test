@@ -3258,8 +3258,9 @@ Repeat
 		EndIf
 		
 		If MsgTimer > 0 Then
+			;If temp = True -> move the message below
 			Local temp% = False
-			If (Not InvOpen%)
+			If (Not InvOpen And OtherOpen = Null) Then
 				If SelectedItem <> Null
 					If SelectedItem\itemtemplate\tempname = "paper" Or SelectedItem\itemtemplate\tempname = "oldpaper"
 						temp% = True
@@ -5025,20 +5026,6 @@ Function DrawGUI()
 	
 	If OtherOpen<>Null Then
 		;[Block]
-		If (PlayerRoom\RoomTemplate\Name = "gatea") Then
-			HideEntity Fog
-			CameraFogRange Camera, 5,30
-			CameraFogColor (Camera,200,200,200)
-			CameraClsColor (Camera,200,200,200)					
-			CameraRange(Camera, 0.05, 30)
-		Else If (PlayerRoom\RoomTemplate\Name = "exit1") And (EntityY(Collider)>1040.0*RoomScale)
-			HideEntity Fog
-			CameraFogRange Camera, 5,45
-			CameraFogColor (Camera,200,200,200)
-			CameraClsColor (Camera,200,200,200)					
-			CameraRange(Camera, 0.05, 60)
-		EndIf
-		
 		PrevOtherOpen = OtherOpen
 		OtherSize=OtherOpen\invSlots;Int(OtherOpen\state2)
 		
@@ -5251,21 +5238,6 @@ Function DrawGUI()
 		;[End Block]
 		
 	Else If InvOpen Then
-		
-		If (PlayerRoom\RoomTemplate\Name = "gatea") Then
-			HideEntity Fog
-			CameraFogRange Camera, 5,30
-			CameraFogColor (Camera,200,200,200)
-			CameraClsColor (Camera,200,200,200)					
-			CameraRange(Camera, 0.05, 30)
-		ElseIf (PlayerRoom\RoomTemplate\Name = "exit1") And (EntityY(Collider)>1040.0*RoomScale)
-			HideEntity Fog
-			CameraFogRange Camera, 5,45
-			CameraFogColor (Camera,200,200,200)
-			CameraClsColor (Camera,200,200,200)					
-			CameraRange(Camera, 0.05, 60)
-		EndIf
-		
 		SelectedDoor = Null
 		
 		width% = 70
@@ -7917,7 +7889,7 @@ Function LoadEntities()
 	FogTexture = LoadTexture_Strict("GFX\fog.jpg", 1)
 	
 	Fog = CreateSprite(ark_blur_cam)
-	ScaleSprite(Fog, Max(GraphicWidth / 1240.0, 1.0), Max(GraphicHeight / 960.0 * 0.8, 0.8))
+	ScaleSprite(Fog, 1.0, Float(GraphicHeight) / Float(GraphicWidth))
 	EntityTexture(Fog, FogTexture)
 	EntityBlend (Fog, 2)
 	EntityOrder Fog, -1000
@@ -7925,7 +7897,7 @@ Function LoadEntities()
 	
 	GasMaskTexture = LoadTexture_Strict("GFX\GasmaskOverlay.jpg", 1)
 	GasMaskOverlay = CreateSprite(ark_blur_cam)
-	ScaleSprite(GasMaskOverlay, Max(GraphicWidth / 1024.0, 1.0), Max(GraphicHeight / 1024.0 * 0.8, 0.8))
+	ScaleSprite(GasMaskOverlay, 1.0, Float(GraphicHeight) / Float(GraphicWidth))
 	EntityTexture(GasMaskOverlay, GasMaskTexture)
 	EntityBlend (GasMaskOverlay, 2)
 	EntityFX(GasMaskOverlay, 1)
@@ -7935,7 +7907,7 @@ Function LoadEntities()
 	
 	InfectTexture = LoadTexture_Strict("GFX\InfectOverlay.jpg", 1)
 	InfectOverlay = CreateSprite(ark_blur_cam)
-	ScaleSprite(InfectOverlay, Max(GraphicWidth / 1024.0, 1.0), Max(GraphicHeight / 1024.0 * 0.8, 0.8))
+	ScaleSprite(InfectOverlay, 1.0, Float(GraphicHeight) / Float(GraphicWidth))
 	EntityTexture(InfectOverlay, InfectTexture)
 	EntityBlend (InfectOverlay, 3)
 	EntityFX(InfectOverlay, 1)
@@ -7946,7 +7918,7 @@ Function LoadEntities()
 	
 	NVTexture = LoadTexture_Strict("GFX\NightVisionOverlay.jpg", 1)
 	NVOverlay = CreateSprite(ark_blur_cam)
-	ScaleSprite(NVOverlay, Max(GraphicWidth / 1024.0, 1.0), Max(GraphicHeight / 1024.0 * 0.8, 0.8))
+	ScaleSprite(NVOverlay, 1.0, Float(GraphicHeight) / Float(GraphicWidth))
 	EntityTexture(NVOverlay, NVTexture)
 	EntityBlend (NVOverlay, 2)
 	EntityFX(NVOverlay, 1)
@@ -7954,7 +7926,7 @@ Function LoadEntities()
 	MoveEntity(NVOverlay, 0, 0, 1.0)
 	HideEntity(NVOverlay)
 	NVBlink = CreateSprite(ark_blur_cam)
-	ScaleSprite(NVBlink, Max(GraphicWidth / 1024.0, 1.0), Max(GraphicHeight / 1024.0 * 0.8, 0.8))
+	ScaleSprite(NVBlink, 1.0, Float(GraphicHeight) / Float(GraphicWidth))
 	EntityColor(NVBlink,0,0,0)
 	EntityFX(NVBlink, 1)
 	EntityOrder NVBlink, -1005
@@ -7971,7 +7943,7 @@ Function LoadEntities()
 	SetBuffer BackBuffer()
 	
 	Dark = CreateSprite(Camera)
-	ScaleSprite(Dark, Max(GraphicWidth / 1240.0, 1.0), Max(GraphicHeight / 960.0 * 0.8, 0.8))
+	ScaleSprite(Dark, 1.0, Float(GraphicHeight) / Float(GraphicWidth))
 	EntityTexture(Dark, DarkTexture)
 	EntityBlend (Dark, 1)
 	EntityOrder Dark, -1002
@@ -7988,7 +7960,7 @@ Function LoadEntities()
 	TeslaTexture = LoadTexture_Strict("GFX\map\tesla.jpg", 1+2)
 	
 	Light = CreateSprite(Camera)
-	ScaleSprite(Light, Max(GraphicWidth / 1240.0, 1.0), Max(GraphicHeight / 960.0 * 0.8, 0.8))
+	ScaleSprite(Light, 1.0, Float(GraphicHeight) / Float(GraphicWidth))
 	EntityTexture(Light, LightTexture)
 	EntityBlend (Light, 1)
 	EntityOrder Light, -1002
