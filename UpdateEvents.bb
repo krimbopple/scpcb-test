@@ -9727,7 +9727,7 @@ Function UpdateEndings()
 						;240,220,200
 						CameraFogColor (Camera,200+(angle*40),200+(angle*20),200)
 						CameraClsColor (Camera,200+(angle*40),200+(angle*20),200)		
-						CameraRange(Camera, 0.05, 30)
+						CameraRange(Camera, 0.05, 60)
 						
 						AmbientLight (140, 140, 140)
 						
