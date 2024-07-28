@@ -6917,7 +6917,7 @@ Function UpdateElevators#(State#, door1.Doors, door2.Doors, room1, room2, event.
 							dir=dir+EntityYaw(room1,True)-EntityYaw(room2,True)
 							x# = Max(Min(Cos(dir)*dist,280*RoomScale-0.22),-280*RoomScale+0.22)
 							z# = Max(Min(Sin(dir)*dist,280*RoomScale-0.22),-280*RoomScale+0.22)
-							RotateEntity Collider,EntityPitch(Collider,True),EntityYaw(room2,True)+angleDist(EntityYaw(Collider,True),EntityYaw(room1,True)),EntityRoll(Collider,True),True
+							RotateEntity Collider,EntityPitch(Collider,True),EntityYaw(room1,True)+angleDist(EntityYaw(Collider,True),EntityYaw(room2,True)),EntityRoll(Collider,True),True
 						Else
 							x# = Max(Min((EntityX(Collider)-EntityX(room2,True)),280*RoomScale-0.22),-280*RoomScale+0.22)
 							z# = Max(Min((EntityZ(Collider)-EntityZ(room2,True)),280*RoomScale-0.22),-280*RoomScale+0.22)
@@ -6943,7 +6943,7 @@ Function UpdateElevators#(State#, door1.Doors, door2.Doors, room1, room2, event.
 										dir=dir+EntityYaw(room1,True)-EntityYaw(room2,True)
 										x# = Max(Min(Cos(dir)*dist,280*RoomScale-0.22),-280*RoomScale+0.22)
 										z# = Max(Min(Sin(dir)*dist,280*RoomScale-0.22),-280*RoomScale+0.22)
-										RotateEntity n\Collider,EntityPitch(n\Collider,True),EntityYaw(room2,True)+angleDist(EntityYaw(n\Collider,True),EntityYaw(room1,True)),EntityRoll(n\Collider,True),True
+										RotateEntity n\Collider,EntityPitch(n\Collider,True),EntityYaw(room1,True)+angleDist(EntityYaw(n\Collider,True),EntityYaw(room2,True)),EntityRoll(n\Collider,True),True
 									Else
 										x# = Max(Min((EntityX(n\Collider)-EntityX(room2,True)),280*RoomScale-0.22),-280*RoomScale+0.22)
 										z# = Max(Min((EntityZ(n\Collider)-EntityZ(room2,True)),280*RoomScale-0.22),-280*RoomScale+0.22)
@@ -6967,7 +6967,7 @@ Function UpdateElevators#(State#, door1.Doors, door2.Doors, room1, room2, event.
 										dir=dir+EntityYaw(room1,True)-EntityYaw(room2,True)
 										x# = Max(Min(Cos(dir)*dist,280*RoomScale-0.22),-280*RoomScale+0.22)
 										z# = Max(Min(Sin(dir)*dist,280*RoomScale-0.22),-280*RoomScale+0.22)
-										RotateEntity it\collider,EntityPitch(it\collider,True),EntityYaw(room2,True)+angleDist(EntityYaw(it\collider,True),EntityYaw(room1,True)),EntityRoll(it\collider,True),True
+										RotateEntity it\collider,EntityPitch(it\collider,True),EntityYaw(room1,True)+angleDist(EntityYaw(it\collider,True),EntityYaw(room2,True)),EntityRoll(it\collider,True),True
 									Else
 										x# = Max(Min((EntityX(it\collider)-EntityX(room2,True)),280*RoomScale-0.22),-280*RoomScale+0.22)
 										z# = Max(Min((EntityZ(it\collider)-EntityZ(room2,True)),280*RoomScale-0.22),-280*RoomScale+0.22)
