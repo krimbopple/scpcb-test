@@ -1008,7 +1008,7 @@ Function UpdateMainMenu()
 						Font3% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
 						Font4% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0)
 						Font5% = AALoadFont("GFX\font\Journal\Journal.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0)
-						ConsoleFont% = AALoadFont("Blitz", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,1)
+						ConsoleFont% = AALoadFont("GFX\font\cour\Courier New.ttf", Int(19 * (GraphicHeight / 1024.0)), 0,0,0) ; AALoadFont("Blitz", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,1)
 						;ReloadAAFont()
 						AATextEnable_Prev% = AATextEnable
 					EndIf
@@ -1111,14 +1111,13 @@ Function UpdateMainMenu()
 	End If
 	
 	Color 255,255,255
-	AASetFont ConsoleFont
+	AASetFont Font1
 	AAText 20,GraphicHeight-30,"v"+VersionNumber
 	
 	;DrawTiledImageRect(MenuBack, 985 * MenuScale, 860 * MenuScale, 200 * MenuScale, 20 * MenuScale, 1200 * MenuScale, 866 * MenuScale, 300, 20 * MenuScale)
 	
 	If Fullscreen Then DrawImage CursorIMG, ScaledMouseX(),ScaledMouseY()
 	
-	AASetFont Font1
 End Function
 
 Function UpdateLauncher()
@@ -2632,6 +2631,4 @@ End Function
 
 
 ;~IDEal Editor Parameters:
-;~F#33#499#4AB#4B5#4E8#5C3#5D6#5F3#5FA#615#629#64A#662#693#6C4#6EA#710#72D#73E#756
-;~F#764#787#79F#7A8#7D9#7ED#821#867#8A9
 ;~C#Blitz3D
