@@ -268,7 +268,7 @@ Global KEY_CONSOLE = GetINIInt(OptionFile, "binds", "Console key")
 
 Global MouseSmooth# = GetINIFloat(OptionFile,"options", "mouse smoothing", 1.0)
 
-;Const INFINITY# = (999.0) ^ (99999.0), NAN# = (-1.0) ^ (0.5)
+Const INFINITY# = (999.0) ^ (99999.0), NAN# = (-1.0) ^ (0.5)
 
 Global Mesh_MinX#, Mesh_MinY#, Mesh_MinZ#
 Global Mesh_MaxX#, Mesh_MaxY#, Mesh_MaxZ#
@@ -1785,7 +1785,7 @@ Global LightConeModel
 
 Global ParticleEffect[10]
 
-Const MaxDTextures=9
+Const MaxDTextures=8
 Global DTextures[MaxDTextures]
 
 Global NPC049OBJ, NPC0492OBJ
@@ -2787,14 +2787,14 @@ Global Input_ResetTime# = 0
 Type SCP427
 	Field Using%
 	Field Timer#
-	Field Sound[2]
-	Field SoundCHN[2]
+	Field Sound[1]
+	Field SoundCHN[1]
 End Type
 
 Global I_427.SCP427 = New SCP427
 
 Type MapZones
-	Field Transition%[2]
+	Field Transition%[1]
 	Field HasCustomForest%
 	Field HasCustomMT%
 End Type
@@ -3350,7 +3350,7 @@ Repeat
 	EntityBlend fresize_image,1
 	EntityAlpha fresize_image,1.0
 	
-	;;CatchErrors("Main loop / uncaught")
+	CatchErrors("Main loop / uncaught")
 	
 	If Vsync = 0 Then
 		Flip 0
@@ -3364,7 +3364,7 @@ Forever
 ;----------------------------------------------------------------------------------------------------------------------------------------------------
 
 Function QuickLoadEvents()
-	;;CatchErrors("Uncaught (QuickLoadEvents)")
+	CatchErrors("Uncaught (QuickLoadEvents)")
 	
 	If QuickLoad_CurrEvent = Null Then
 		QuickLoadPercent = -1
@@ -3660,7 +3660,7 @@ Function QuickLoadEvents()
 			;[End Block]
 	End Select
 	
-	;;CatchErrors("QuickLoadEvents "+e\EventName)
+	CatchErrors("QuickLoadEvents "+e\EventName)
 	
 End Function
 
@@ -3881,8 +3881,8 @@ Function InitCredits()
 	Local file% = OpenFile("Credits.txt")
 	Local l$
 	
-	CreditsFont% = LoadFont_Strict("GFX\font\cour\Courier New.ttf", Int(21 * (GraphicHeight / 1024.0)))
-	CreditsFont2% = LoadFont_Strict("GFX\font\courbd\Courier New.ttf", Int(35 * (GraphicHeight / 1024.0)))
+	CreditsFont% = LoadFont_Strict("GFX\font\cour\Courier New.ttf", Int(21 * (GraphicHeight / 1024.0)), 0,0,0)
+	CreditsFont2% = LoadFont_Strict("GFX\font\courbd\Courier New.ttf", Int(35 * (GraphicHeight / 1024.0)), 0,0,0)
 	
 	If CreditsScreen = 0
 		CreditsScreen = LoadImage_Strict("GFX\creditsscreen.pt")
@@ -4039,7 +4039,7 @@ End Function
 ;--------------------------------------- player controls -------------------------------------------
 
 Function MovePlayer()
-	;CatchErrors("Uncaught (MovePlayer)")
+	CatchErrors("Uncaught (MovePlayer)")
 	Local Sprint# = 1.0, Speed# = 0.018, i%, angle#
 	
 	If SuperMan Then
@@ -4364,7 +4364,7 @@ Function MovePlayer()
 		HeartBeatVolume = Max(HeartBeatVolume - FPSfactor*0.05, 0)
 	EndIf
 	
-	;CatchErrors("MovePlayer")
+	CatchErrors("MovePlayer")
 End Function
 
 Function MouseLook()
@@ -4612,7 +4612,7 @@ End Function
 ;--------------------------------------- GUI, menu etc ------------------------------------------------
 
 Function DrawGUI()
-	;CatchErrors("Uncaught (DrawGUI)")
+	CatchErrors("Uncaught (DrawGUI)")
 	
 	Local temp%, x%, y%, z%, i%, yawvalue#, pitchvalue#
 	Local x2#,y2#,z2#
@@ -7110,11 +7110,11 @@ Function DrawGUI()
 	
 	If PrevInvOpen And (Not InvOpen) Then MoveMouse viewport_center_x, viewport_center_y
 	
-	;CatchErrors("DrawGUI")
+	CatchErrors("DrawGUI")
 End Function
 
 Function DrawMenu()
-	;CatchErrors("Uncaught (DrawMenu)")
+	CatchErrors("Uncaught (DrawMenu)")
 	
 	Local x%, y%, width%, height%
 	If api_GetFocus() = 0 Then ;Game is out of focus -> pause the game
@@ -7806,7 +7806,7 @@ Function DrawMenu()
 	
 	AASetFont Font1
 	
-	;CatchErrors("DrawMenu")
+	CatchErrors("DrawMenu")
 End Function
 
 Function MouseOn%(x%, y%, width%, height%)
@@ -7822,7 +7822,7 @@ End Function
 
 Include "LoadAllSounds.bb"
 Function LoadEntities()
-	;CatchErrors("Uncaught (LoadEntities)")
+	CatchErrors("Uncaught (LoadEntities)")
 	DrawLoading(0)
 	
 	Local i%
@@ -8374,11 +8374,11 @@ Function LoadEntities()
 	
 	;LoadRoomMeshes()
 	
-	;CatchErrors("LoadEntities")
+	CatchErrors("LoadEntities")
 End Function
 
 Function InitNewGame()
-	;CatchErrors("Uncaught (InitNewGame)")
+	CatchErrors("Uncaught (InitNewGame)")
 	Local i%, de.Decals, d.Doors, it.Items, r.Rooms, sc.SecurityCams, e.Events
 	
 	DrawLoading(45)
@@ -8539,11 +8539,11 @@ Function InitNewGame()
 	DropSpeed = 0
 	
 	PrevTime = MilliSecs()
-	;CatchErrors("InitNewGame")
+	CatchErrors("InitNewGame")
 End Function
 
 Function InitLoadGame()
-	;CatchErrors("Uncaught (InitLoadGame)")
+	CatchErrors("Uncaught (InitLoadGame)")
 	Local d.Doors, sc.SecurityCams, rt.RoomTemplates, e.Events
 	
 	DrawLoading(80)
@@ -8627,7 +8627,7 @@ Function InitLoadGame()
 	
 	FreeTextureCache
 	
-	;CatchErrors("InitLoadGame")
+	CatchErrors("InitLoadGame")
 	DrawLoading(100)
 	
 	PrevTime = MilliSecs()
@@ -8637,7 +8637,7 @@ Function InitLoadGame()
 End Function
 
 Function NullGame(playbuttonsfx%=True)
-	;CatchErrors("Uncaught (NullGame)")
+	CatchErrors("Uncaught (NullGame)")
 	Local i%, x%, y%, lvl
 	Local itt.ItemTemplates, s.Screens, lt.LightTemplates, d.Doors, m.Materials
 	Local wp.WayPoints, twp.TempWayPoints, r.Rooms, it.Items
@@ -8913,7 +8913,7 @@ Function NullGame(playbuttonsfx%=True)
 	Sky = 0
 	InitFastResize()
 	
-	;CatchErrors("NullGame")
+	CatchErrors("NullGame")
 End Function
 
 Include "save.bb"
@@ -10618,7 +10618,7 @@ End Function
 
 
 Function WrapAngle#(angle#)
-	If angle = Infinity Then Return 0.0
+	If angle = INFINITY Then Return 0.0
 	While angle < 0
 		angle = angle + 360
 	Wend 
@@ -11189,12 +11189,12 @@ End Function
 ; Find mesh extents
 Function GetMeshExtents(Mesh%)
 	Local s%, surf%, surfs%, v%, verts%, x#, y#, z#
-	Local minx# = Infinity
-	Local miny# = Infinity
-	Local minz# = Infinity
-	Local maxx# = -Infinity
-	Local maxy# = -Infinity
-	Local maxz# = -Infinity
+	Local minx# = INFINITY
+	Local miny# = INFINITY
+	Local minz# = INFINITY
+	Local maxx# = -INFINITY
+	Local maxy# = -INFINITY
+	Local maxz# = -INFINITY
 	
 	surfs = CountSurfaces(Mesh)
 	
@@ -11685,51 +11685,51 @@ Function ScaledMouseY%()
 	Return Float(MouseY())*Float(GraphicHeight)/Float(RealGraphicHeight)
 End Function
 
-;Function ;CatchErrors(location$)
-;	Local errStr$ = ErrorLog()
-;	Local errF%
-;	If Len(errStr)>0 Then
-;		If FileType(ErrorFile)=0 Then
-;			errF = WriteFile(ErrorFile)
-;			WriteLine errF,"An error occured in SCP - Containment Breach!"
-;			WriteLine errF,"Version: "+VersionNumber
-;			WriteLine errF,"Save compatible version: "+CompatibleNumber
-;			WriteLine errF,"Date and time: "+CurrentDate()+" at "+CurrentTime()
-;			WriteLine errF,"Total video memory (MB): "+TotalVidMem()/1024/1024
-;			WriteLine errF,"Available video memory (MB): "+AvailVidMem()/1024/1024
-;			GlobalMemoryStatus m.MEMORYSTATUS
-;			WriteLine errF,"Global memory status: "+(m\dwAvailPhys%/1024/1024)+" MB/"+(m\dwTotalPhys%/1024/1024)+" MB ("+(m\dwAvailPhys%/1024)+" KB/"+(m\dwTotalPhys%/1024)+" KB)"
-;			WriteLine errF,"Triangles rendered: "+CurrTrisAmount
-;			WriteLine errF,"Active textures: "+ActiveTextures()
-;			WriteLine errF,""
-;			WriteLine errF,"Error(s):"
-;		Else
-;			Local canwriteError% = True
-;			errF = OpenFile(ErrorFile)
-;			While (Not Eof(errF))
-;				Local l$ = ReadLine(errF)
-;				If Left(l,Len(location))=location
-;					canwriteError = False
-;					Exit
-;				EndIf
-;			Wend
-;			If canwriteError
-;				SeekFile errF,FileSize(ErrorFile)
-;			EndIf
-;		EndIf
-;		If canwriteError
-;			WriteLine errF,location+" ***************"
-;			While Len(errStr)>0
-;				WriteLine errF,errStr
-;				DebugLog errStr
-;				errStr = ErrorLog()
-;			Wend
-;		EndIf
-;		Msg = "Blitz3D Error! Details in "+Chr(34)+ErrorFile+Chr(34)
-;		MsgTimer = 20*70
-;		CloseFile errF
-;	EndIf
-;End Function
+Function CatchErrors(location$)
+	Local errStr$ = ErrorLog()
+	Local errF%
+	If Len(errStr)>0 Then
+		If FileType(ErrorFile)=0 Then
+			errF = WriteFile(ErrorFile)
+			WriteLine errF,"An error occured in SCP - Containment Breach!"
+			WriteLine errF,"Version: "+VersionNumber
+			WriteLine errF,"Save compatible version: "+CompatibleNumber
+			WriteLine errF,"Date and time: "+CurrentDate()+" at "+CurrentTime()
+			WriteLine errF,"Total video memory (MB): "+TotalVidMem()/1024/1024
+			WriteLine errF,"Available video memory (MB): "+AvailVidMem()/1024/1024
+			GlobalMemoryStatus m.MEMORYSTATUS
+			WriteLine errF,"Global memory status: "+(m\dwAvailPhys%/1024/1024)+" MB/"+(m\dwTotalPhys%/1024/1024)+" MB ("+(m\dwAvailPhys%/1024)+" KB/"+(m\dwTotalPhys%/1024)+" KB)"
+			WriteLine errF,"Triangles rendered: "+CurrTrisAmount
+			WriteLine errF,"Active textures: "+ActiveTextures()
+			WriteLine errF,""
+			WriteLine errF,"Error(s):"
+		Else
+			Local canwriteError% = True
+			errF = OpenFile(ErrorFile)
+			While (Not Eof(errF))
+				Local l$ = ReadLine(errF)
+				If Left(l,Len(location))=location
+					canwriteError = False
+					Exit
+				EndIf
+			Wend
+			If canwriteError
+				SeekFile errF,FileSize(ErrorFile)
+			EndIf
+		EndIf
+		If canwriteError
+			WriteLine errF,location+" ***************"
+			While Len(errStr)>0
+				WriteLine errF,errStr
+				DebugLog errStr
+				errStr = ErrorLog()
+			Wend
+		EndIf
+		Msg = "Blitz3D Error! Details in "+Chr(34)+ErrorFile+Chr(34)
+		MsgTimer = 20*70
+		CloseFile errF
+	EndIf
+End Function
 
 Function Create3DIcon(width%,height%,modelpath$,modelX#=0,modelY#=0,modelZ#=0,modelPitch#=0,modelYaw#=0,modelRoll#=0,modelscaleX#=1,modelscaleY#=1,modelscaleZ#=1,withfog%=False)
 	Local img% = CreateImage(width,height)
@@ -12072,6 +12072,6 @@ End Function
 
 
 ;~IDEal Editor Parameters:
-;~F#DCC#1618#2413#2B0F
+;~F#39#DCC#1618#2413#2B0F
 ;~B#11DC#1454#1BF2
 ;~C#Blitz3D

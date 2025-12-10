@@ -1,5 +1,5 @@
 Function UpdateEvents()
-	;CatchErrors("Uncaught (UpdateEvents)")
+	CatchErrors("Uncaught (UpdateEvents)")
 	Local dist#, i%, temp%, pvt%, strtemp$, j%, k%
 	
 	Local p.Particles, n.NPCs, r.Rooms, e.Events, e2.Events, it.Items, it2.Items, em.Emitters, sc.SecurityCams, sc2.SecurityCams
@@ -4681,12 +4681,12 @@ Function UpdateEvents()
 								If it\Dropped=1 Then
 									For i = - 1 To 1 Step 2
 										TFormPoint x+1024*i,y,z,e\room\obj,0
-										it2.Items = CreateItem(it\name, it\itemtemplate\tempname, TFormedX(), EntityY(it\collider), TFormedZ())
+										it2.items = CreateItem(it\name, it\itemtemplate\tempname, TFormedX(), EntityY(it\collider), TFormedZ())
 										RotateEntity(it2\collider, EntityPitch(it\collider),EntityYaw(it\collider),0)
 										EntityType(it2\collider, HIT_ITEM)
 									Next
 								Else
-									For it2.Items = Each Items
+									For it2.items = Each Items
 										If it2<>it And it2\dist < 15.0 Then
 											
 											TFormPoint EntityX(it2\collider),EntityY(it2\collider),EntityZ(it2\collider),0,e\room\obj
@@ -8730,9 +8730,9 @@ Function UpdateEvents()
 		End Select
 		
 		If e<>Null Then
-			;CatchErrors(Chr(34)+e\EventName+Chr(34)+" event")
+			CatchErrors(Chr(34)+e\EventName+Chr(34)+" event")
 		Else
-			;CatchErrors("Deleted event")
+			CatchErrors("Deleted event")
 		EndIf
 	Next
 	
@@ -10174,6 +10174,9 @@ End Function
 
 
 ;~IDEal Editor Parameters:
-;~F#A10
+;~F#1#14#29#13B#343#535#545#5B1#630#68D#6B4#6C2#6CC#6D9#8CA#8EB#93F#976#983#9BD
+;~F#9CE#9EE#9F7#A01#A10#B0B#B2D#DE2#E29#E3F#E4B#E68#EB9#ED2#FA1#10A3#1123#113C#115B#11C6
+;~F#11D3#11EC#1284#1439#152D#1581#1633#16D4#1796#17A9#187A#18A7#18C4#18EB#191B#1941#1969#19BB#19F8#1A29
+;~F#1A3C#1AFD#1B6A#1B7D#1B8B#1BCF#1BF0#1CDE#1D53#1E50#1ED1#1F1F#1F24#1F73#1F79#213E
 ;~B#10D3#1DD1
 ;~C#Blitz3D

@@ -657,7 +657,7 @@ Function CheckForUpdates()
 		CloseFile(ChangeLogFile)
 		DeleteFile("Changelog_Prev.txt")
 		
-		UpdaterFont = LoadFont("GFX\font\cour\Courier New.ttf",16)
+		UpdaterFont = LoadFont("GFX\font\cour\Courier New.ttf",16,0,0,0)
 		
 		Repeat
 			SetBuffer BackBuffer()
@@ -900,4 +900,5 @@ End Function
 
 
 ;~IDEal Editor Parameters:
+;~F#B#12#C4#D6#DE#E2#E8#EE#F4#110#11F#128#131#13A#144#14B#15C#165#173#18E
 ;~C#Blitz3D

@@ -1132,7 +1132,7 @@ Function UpdateLauncher()
 	RealGraphicWidth = GraphicWidth
 	RealGraphicHeight = GraphicHeight
 	
-	Font1 = LoadFont_Strict("GFX\font\cour\Courier New.ttf", 18)
+	Font1 = LoadFont_Strict("GFX\font\cour\Courier New.ttf", 18, 0,0,0)
 	SetFont Font1
 	MenuWhite = LoadImage_Strict("GFX\menu\menuwhite.jpg")
 	MenuBlack = LoadImage_Strict("GFX\menu\menublack.jpg")	
@@ -1340,7 +1340,7 @@ Type LoadingScreens
 	Field title$
 	Field alignx%, aligny%
 	Field disablebackground%
-	Field txt$[6], txtamount%
+	Field txt$[5], txtamount%
 End Type
 
 Function InitLoadingScreens(file$)
@@ -2183,7 +2183,7 @@ Function DrawMapCreatorTooltip(x%,y%,width%,height%,mapname$)
 	AASetFont Font1
 	Color 255,255,255
 	
-	Local txt$[6]
+	Local txt$[5]
 	If Right(mapname,6)="cbmap2" Then
 		txt[0] = Left(mapname$,Len(mapname$)-7)
 		Local f% = OpenFile("Map Creator\Maps\"+mapname$)

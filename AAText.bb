@@ -219,14 +219,14 @@ End Function
 Function AALoadFont%(file$="Tahoma", height=13, bold=0, italic=0, underline=0, AATextScaleFactor%=2)
 	Local newFont.AAFont = New AAFont
 	
-	newFont\lowResFont = LoadFont(file,height)
+	newFont\lowResFont = LoadFont(file,height,bold,italic,underline)
 	
 	SetFont newFont\lowResFont
 	newFont\mW = FontWidth()
 	newFont\mH = FontHeight()
 	
 	If AATextEnable And AATextScaleFactor>1 Then
-		Local hResFont% = LoadFont(file,height*AATextScaleFactor)
+		Local hResFont% = LoadFont(file,height*AATextScaleFactor,bold,italic,underline)
 		Local tImage% = CreateTexture(1024,1024,3)
 		Local tX% = 0 : Local tY% = 1
 		
@@ -333,4 +333,5 @@ Function AALoadFont%(file$="Tahoma", height=13, bold=0, italic=0, underline=0, A
 End Function
 
 ;~IDEal Editor Parameters:
+;~F#9#19#3F#4B#50#63#6D#7E#88#CB
 ;~C#Blitz3D
