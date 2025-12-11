@@ -62,7 +62,17 @@ Function UpdateMainMenu()
 	
 	ShowPointer()
 	
-	DrawImage(MenuBack, 0, 0)
+	Local backX% = GraphicWidth / 2 - ImageWidth(MenuBack) / 2
+	Local backY% = GraphicHeight / 2 - ImageHeight(MenuBack) / 2 - 50
+	DrawImage(MenuBack, backX, backY)
+	
+	Local menuCenterX% = GraphicWidth / 2
+	Local menuTopY% = backY
+	Local decorationHeight% = 7 * MenuScale
+	
+	Local decorationWidth% = GraphicWidth * 0.8
+	Local decorationX% = menuCenterX - decorationWidth / 2
+	Local decorationY% = menuTopY - 20 * MenuScale
 	
 ;	If (MilliSecs2() Mod MenuBlinkTimer(0)) >= Rand(MenuBlinkDuration(0)) Then
 ;		DrawImage(Menu173, GraphicWidth - ImageWidth(Menu173), GraphicHeight - ImageHeight(Menu173))
@@ -122,9 +132,7 @@ Function UpdateMainMenu()
 	
 	DrawImage(MenuText, GraphicWidth / 2 - ImageWidth(MenuText) / 2, GraphicHeight - 15 * MenuScale - ImageHeight(MenuText))
 	
-;	If GraphicWidth > 1240 * MenuScale Then
-;		DrawTiledImageRect(MenuWhite, 0, 5, 512, 7 * MenuScale, 985.0 * MenuScale, 407.0 * MenuScale, (GraphicWidth - 1240 * MenuScale) + 300, 7 * MenuScale)
-;	EndIf
+	DrawTiledImageRect(MenuWhite, 0, 5, 512, 7 * MenuScale, 0, 246.5 * MenuScale, GraphicWidth, 7 * MenuScale)
 	
 	If (Not MouseDown1)
 		OnSliderID = 0
@@ -1316,19 +1324,29 @@ End Function
 
 
 Function DrawTiledImageRect(img%, srcX%, srcY%, srcwidth#, srcheight#, x%, y%, width%, height%)
-	
-	Local x2% = x
-	While x2 < x+width
-		Local y2% = y
-		While y2 < y+height
-			If x2 + srcwidth > x + width Then srcwidth = srcwidth - Max((x2 + srcwidth) - (x + width), 1)
-			If y2 + srcheight > y + height Then srcheight = srcheight - Max((y2 + srcheight) - (y + height), 1)
-			DrawImageRect(img, x2, y2, srcX, srcY, srcwidth, srcheight)
-			y2 = y2 + srcheight
-		Wend
-		x2 = x2 + srcwidth
-	Wend
-	
+    Local x2% = x
+    While x2 < x + width
+        Local y2% = y
+        While y2 < y + height
+            Local drawWidth# = srcwidth
+            Local drawHeight# = srcheight
+            
+            If x2 + drawWidth > x + width Then
+                drawWidth = (x + width) - x2
+            EndIf
+            
+            If y2 + drawHeight > y + height Then
+                drawHeight = (y + height) - y2
+            EndIf
+            
+            If drawWidth > 0 And drawHeight > 0 Then
+                DrawImageRect(img, x2, y2, srcX, srcY, drawWidth, drawHeight)
+            EndIf
+            
+            y2 = y2 + srcheight
+        Wend
+        x2 = x2 + srcwidth
+    Wend
 End Function
 
 
