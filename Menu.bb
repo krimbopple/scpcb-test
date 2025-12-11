@@ -6,7 +6,14 @@ MenuBlack = LoadImage_Strict("GFX\menu\menublack.jpg")
 MaskImage MenuBlack, 255,255,0
 Global QuickLoadIcon% = LoadImage_Strict("GFX\menu\QuickLoading.png")
 
-ResizeImage(MenuBack, ImageWidth(MenuBack) * MenuScale, ImageHeight(MenuBack) * MenuScale)
+Global MenuBackScale# = Min(Float(GraphicWidth) / 1920.0, Float(GraphicHeight) / 1440.0)
+
+Local MenuBackWidth% = 1920 * MenuBackScale
+Local MenuBackHeight% = 1440 * MenuBackScale
+Global MenuBackX% = (GraphicWidth - MenuBackWidth) / 2
+Global MenuBackY% = (GraphicHeight - MenuBackHeight) / 2
+
+ResizeImage(MenuBack, MenuBackWidth, MenuBackHeight)
 ResizeImage(MenuText, ImageWidth(MenuText) * MenuScale, ImageHeight(MenuText) * MenuScale)
 ResizeImage(Menu173, ImageWidth(Menu173) * MenuScale, ImageHeight(Menu173) * MenuScale)
 ResizeImage(QuickLoadIcon, ImageWidth(QuickLoadIcon) * MenuScale, ImageHeight(QuickLoadIcon) * MenuScale)
@@ -62,17 +69,7 @@ Function UpdateMainMenu()
 	
 	ShowPointer()
 	
-	Local backX% = GraphicWidth / 2 - ImageWidth(MenuBack) / 2
-	Local backY% = GraphicHeight / 2 - ImageHeight(MenuBack) / 2 - 50
-	DrawImage(MenuBack, backX, backY)
-	
-	Local menuCenterX% = GraphicWidth / 2
-	Local menuTopY% = backY
-	Local decorationHeight% = 7 * MenuScale
-	
-	Local decorationWidth% = GraphicWidth * 0.8
-	Local decorationX% = menuCenterX - decorationWidth / 2
-	Local decorationY% = menuTopY - 20 * MenuScale
+    DrawImage(MenuBack, MenuBackX, MenuBackY)
 	
 ;	If (MilliSecs2() Mod MenuBlinkTimer(0)) >= Rand(MenuBlinkDuration(0)) Then
 ;		DrawImage(Menu173, GraphicWidth - ImageWidth(Menu173), GraphicHeight - ImageHeight(Menu173))
@@ -132,7 +129,7 @@ Function UpdateMainMenu()
 	
 	DrawImage(MenuText, GraphicWidth / 2 - ImageWidth(MenuText) / 2, GraphicHeight - 15 * MenuScale - ImageHeight(MenuText))
 	
-	DrawTiledImageRect(MenuWhite, 0, 5, 512, 7 * MenuScale, 0, 246.5 * MenuScale, GraphicWidth, 7 * MenuScale)
+	;DrawTiledImageRect(MenuWhite, 0, 5, 512, 7 * MenuScale, 0, 246.5 * MenuScale, GraphicWidth, 7 * MenuScale)
 	
 	If (Not MouseDown1)
 		OnSliderID = 0
