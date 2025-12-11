@@ -1,4 +1,4 @@
-Global MenuBack% = LoadImage_Strict("GFX\menu\back.jpg")
+Global MenuBack% = LoadImage_Strict("GFX\menu\menu.png")
 Global MenuText% = LoadImage_Strict("GFX\menu\scptext.jpg")
 Global Menu173% = LoadImage_Strict("GFX\menu\173back.jpg")
 MenuWhite = LoadImage_Strict("GFX\menu\menuwhite.jpg")
@@ -64,9 +64,9 @@ Function UpdateMainMenu()
 	
 	DrawImage(MenuBack, 0, 0)
 	
-	If (MilliSecs2() Mod MenuBlinkTimer(0)) >= Rand(MenuBlinkDuration(0)) Then
-		DrawImage(Menu173, GraphicWidth - ImageWidth(Menu173), GraphicHeight - ImageHeight(Menu173))
-	EndIf
+;	If (MilliSecs2() Mod MenuBlinkTimer(0)) >= Rand(MenuBlinkDuration(0)) Then
+;		DrawImage(Menu173, GraphicWidth - ImageWidth(Menu173), GraphicHeight - ImageHeight(Menu173))
+;	EndIf
 	
 	If Rand(300) = 1 Then
 		MenuBlinkTimer(0) = Rand(4000, 8000)
@@ -120,11 +120,11 @@ Function UpdateMainMenu()
 	
 	AASetFont Font2
 	
-	DrawImage(MenuText, GraphicWidth / 2 - ImageWidth(MenuText) / 2, GraphicHeight - 20 * MenuScale - ImageHeight(MenuText))
+	DrawImage(MenuText, GraphicWidth / 2 - ImageWidth(MenuText) / 2, GraphicHeight - 15 * MenuScale - ImageHeight(MenuText))
 	
-	If GraphicWidth > 1240 * MenuScale Then
-		DrawTiledImageRect(MenuWhite, 0, 5, 512, 7 * MenuScale, 985.0 * MenuScale, 407.0 * MenuScale, (GraphicWidth - 1240 * MenuScale) + 300, 7 * MenuScale)
-	EndIf
+;	If GraphicWidth > 1240 * MenuScale Then
+;		DrawTiledImageRect(MenuWhite, 0, 5, 512, 7 * MenuScale, 985.0 * MenuScale, 407.0 * MenuScale, (GraphicWidth - 1240 * MenuScale) + 300, 7 * MenuScale)
+;	EndIf
 	
 	If (Not MouseDown1)
 		OnSliderID = 0
@@ -133,7 +133,7 @@ Function UpdateMainMenu()
 	If MainMenuTab = 0 Then
 		For i% = 0 To 3
 			temp = False
-			x = 159 * MenuScale
+			x = GraphicWidth / 2 - 200 * MenuScale
 			y = (286 + 100 * i) * MenuScale
 			
 			width = 400 * MenuScale
@@ -223,7 +223,7 @@ Function UpdateMainMenu()
 		
 	Else
 		
-		x = 159 * MenuScale
+		x = GraphicWidth / 2 - 290 * MenuScale
 		y = 286 * MenuScale
 		
 		width = 400 * MenuScale
@@ -260,7 +260,7 @@ Function UpdateMainMenu()
 			Case 1 ; New game
 				;[Block]
 				
-				x = 159 * MenuScale
+				x = GraphicWidth / 2 - 290 * MenuScale
 				y = 286 * MenuScale
 				
 				width = 400 * MenuScale
@@ -270,7 +270,7 @@ Function UpdateMainMenu()
 				AASetFont Font2
 				AAText(x + width / 2, y + height / 2, "NEW GAME", True, True)
 				
-				x = 160 * MenuScale
+				x = GraphicWidth / 2 - 290 * MenuScale
 				y = y + height + 20 * MenuScale
 				width = 580 * MenuScale
 				height = 330 * MenuScale
@@ -371,14 +371,14 @@ Function UpdateMainMenu()
 					RowText(SelectedDifficulty\description, x+160*MenuScale, y+160*MenuScale, (410-20)*MenuScale, 200)					
 				EndIf
 				
-				If DrawButton(x, y + height + 20 * MenuScale, 160 * MenuScale, 70 * MenuScale, "Load map", False) Then
+				If DrawButton(GraphicWidth / 2 - 290 * MenuScale, y + height + 20 * MenuScale, 160 * MenuScale, 70 * MenuScale, "Load map", False) Then
 					MainMenuTab = 4
 					LoadSavedMaps()
 				EndIf
 				
 				AASetFont Font2
 				
-				If DrawButton(x + 420 * MenuScale, y + height + 20 * MenuScale, 160 * MenuScale, 70 * MenuScale, "START", False) Then
+				If DrawButton(GraphicWidth / 2 + 130 * MenuScale, y + height + 20 * MenuScale, 160 * MenuScale, 70 * MenuScale, "START", False) Then
 					If CurrSave = "" Then CurrSave = "untitled"
 					
 					If RandomSeed = "" Then
@@ -417,7 +417,7 @@ Function UpdateMainMenu()
 				
 				DrawFrame(x, y, width, height)
 				
-				x = 159 * MenuScale
+				x = GraphicWidth / 2 - 290 * MenuScale
 				y = 286 * MenuScale
 				
 				width = 400 * MenuScale
@@ -427,7 +427,7 @@ Function UpdateMainMenu()
 				AASetFont Font2
 				AAText(x + width / 2, y + height / 2, "LOAD GAME", True, True)
 				
-				x = 160 * MenuScale
+				x = GraphicWidth / 2 - 290 * MenuScale
 				y = y + height + 20 * MenuScale
 				width = 580 * MenuScale
 				height = 296 * MenuScale
@@ -551,7 +551,7 @@ Function UpdateMainMenu()
 			Case 3,5,6,7 ;options
 				;[Block]
 				
-				x = 159 * MenuScale
+				x = GraphicWidth / 2 - 290 * MenuScale
 				y = 286 * MenuScale
 				
 				width = 400 * MenuScale
@@ -561,7 +561,7 @@ Function UpdateMainMenu()
 				AASetFont Font2
 				AAText(x + width / 2, y + height / 2, "OPTIONS", True, True)
 				
-				x = 160 * MenuScale
+				x = GraphicWidth / 2 - 290 * MenuScale
 				y = y + height + 20 * MenuScale
 				width = 580 * MenuScale
 				height = 60 * MenuScale
@@ -1026,7 +1026,7 @@ Function UpdateMainMenu()
 				
 				DrawFrame(x, y, width, height)
 				
-				x = 159 * MenuScale
+				x = GraphicWidth / 2 - 290 * MenuScale
 				y = 286 * MenuScale
 				
 				width = 400 * MenuScale
@@ -1036,7 +1036,7 @@ Function UpdateMainMenu()
 				AASetFont Font2
 				AAText(x + width / 2, y + height / 2, "LOAD MAP", True, True)
 				
-				x = 160 * MenuScale
+				x = GraphicWidth / 2 - 290 * MenuScale
 				y = y + height + 20 * MenuScale
 				width = 580 * MenuScale
 				height = 350 * MenuScale
@@ -1112,7 +1112,7 @@ Function UpdateMainMenu()
 	
 	Color 255,255,255
 	AASetFont Font1
-	AAText 20,GraphicHeight-30,"v"+VersionNumber
+	AAText  GraphicWidth-80, GraphicHeight-30, "v"+VersionNumber, False, False
 	
 	;DrawTiledImageRect(MenuBack, 985 * MenuScale, 860 * MenuScale, 200 * MenuScale, 20 * MenuScale, 1200 * MenuScale, 866 * MenuScale, 300, 20 * MenuScale)
 	
@@ -1132,7 +1132,7 @@ Function UpdateLauncher()
 	RealGraphicWidth = GraphicWidth
 	RealGraphicHeight = GraphicHeight
 	
-	Font1 = LoadFont_Strict("GFX\font\cour\Courier New.ttf", 18, 0,0,0)
+	Font1 = LoadFont_Strict("GFX\font\cour\Courier New.ttf", 18)
 	SetFont Font1
 	MenuWhite = LoadImage_Strict("GFX\menu\menuwhite.jpg")
 	MenuBlack = LoadImage_Strict("GFX\menu\menublack.jpg")	
@@ -1340,7 +1340,7 @@ Type LoadingScreens
 	Field title$
 	Field alignx%, aligny%
 	Field disablebackground%
-	Field txt$[5], txtamount%
+	Field txt$[6], txtamount%
 End Type
 
 Function InitLoadingScreens(file$)
@@ -2183,7 +2183,7 @@ Function DrawMapCreatorTooltip(x%,y%,width%,height%,mapname$)
 	AASetFont Font1
 	Color 255,255,255
 	
-	Local txt$[5]
+	Local txt$[6]
 	If Right(mapname,6)="cbmap2" Then
 		txt[0] = Left(mapname$,Len(mapname$)-7)
 		Local f% = OpenFile("Map Creator\Maps\"+mapname$)
