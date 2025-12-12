@@ -7128,25 +7128,25 @@ Function DrawMenu()
 		
 		;DebugLog AchievementsMenu+"|"+OptionsMenu+"|"+QuitMSG
 		
-		If PlayerRoom\RoomTemplate\Name$ <> "exit1" And PlayerRoom\RoomTemplate\Name$ <> "gatea"
-			If StopHidingTimer = 0 Then
-				If EntityDistance(Curr173\Collider, Collider)<4.0 Or EntityDistance(Curr106\Collider, Collider)<4.0 Then 
-					StopHidingTimer = 1
-				EndIf	
-			ElseIf StopHidingTimer < 40
-				If KillTimer >= 0 Then 
-					StopHidingTimer = StopHidingTimer+FPSfactor
-					
-					If StopHidingTimer => 40 Then
-						PlaySound_Strict(HorrorSFX(15))
-						Msg = "STOP HIDING"
-						MsgTimer = 6*70
-						MenuOpen = False
-						Return
-					EndIf
-				EndIf
-			EndIf
-		EndIf
+;		If PlayerRoom\RoomTemplate\Name$ <> "exit1" And PlayerRoom\RoomTemplate\Name$ <> "gatea"
+;			If StopHidingTimer = 0 Then
+;				If EntityDistance(Curr173\Collider, Collider)<4.0 Or EntityDistance(Curr106\Collider, Collider)<4.0 Then 
+;					StopHidingTimer = 1
+;				EndIf	
+;			ElseIf StopHidingTimer < 40
+;				If KillTimer >= 0 Then 
+;					StopHidingTimer = StopHidingTimer+FPSfactor
+;					
+;					If StopHidingTimer => 40 Then
+;						PlaySound_Strict(HorrorSFX(15))
+;						Msg = "STOP HIDING"
+;						MsgTimer = 6*70
+;						MenuOpen = False
+;						Return
+;					EndIf
+;				EndIf
+;			EndIf
+;		EndIf
 		
 		InvOpen = False
 		

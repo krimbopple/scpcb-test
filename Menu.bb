@@ -127,7 +127,7 @@ Function UpdateMainMenu()
 	
 	AASetFont Font2
 	
-	DrawImage(MenuText, GraphicWidth / 2 - ImageWidth(MenuText) / 2, GraphicHeight - 15 * MenuScale - ImageHeight(MenuText))
+	;DrawImage(MenuText, GraphicWidth / 2 - ImageWidth(MenuText) / 2, GraphicHeight - 15 * MenuScale - ImageHeight(MenuText))
 	
 	;DrawTiledImageRect(MenuWhite, 0, 5, 512, 7 * MenuScale, 0, 246.5 * MenuScale, GraphicWidth, 7 * MenuScale)
 	
