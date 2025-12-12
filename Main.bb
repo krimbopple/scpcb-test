@@ -268,7 +268,7 @@ Global KEY_CONSOLE = GetINIInt(OptionFile, "binds", "Console key")
 
 Global MouseSmooth# = GetINIFloat(OptionFile,"options", "mouse smoothing", 1.0)
 
-Const INFINITY# = (999.0) ^ (99999.0), NAN# = (-1.0) ^ (0.5)
+;Const INFINITY# = (999.0) ^ (99999.0), NAN# = (-1.0) ^ (0.5)
 
 Global Mesh_MinX#, Mesh_MinY#, Mesh_MinZ#
 Global Mesh_MaxX#, Mesh_MaxY#, Mesh_MaxZ#
@@ -1785,7 +1785,7 @@ Global LightConeModel
 
 Global ParticleEffect[10]
 
-Const MaxDTextures=8
+Const MaxDTextures=9
 Global DTextures[MaxDTextures]
 
 Global NPC049OBJ, NPC0492OBJ
@@ -2787,14 +2787,14 @@ Global Input_ResetTime# = 0
 Type SCP427
 	Field Using%
 	Field Timer#
-	Field Sound[1]
-	Field SoundCHN[1]
+	Field Sound[2]
+	Field SoundCHN[2]
 End Type
 
 Global I_427.SCP427 = New SCP427
 
 Type MapZones
-	Field Transition%[1]
+	Field Transition%[2]
 	Field HasCustomForest%
 	Field HasCustomMT%
 End Type
@@ -11849,76 +11849,66 @@ Function TeleportEntity(entity%,x#,y#,z#,customradius#=0.3,isglobal%=False,pickr
 End Function
 
 Function PlayStartupVideos()
-	
-	If GetINIInt("options.ini","options","play startup video")=0 Then Return
-	
-	Local Cam = CreateCamera() 
-	CameraClsMode Cam, 0, 1
-	Local Quad = CreateQuad()
-	Local Texture = CreateTexture(2048, 2048, 256 Or 16 Or 32)
-	EntityTexture Quad, Texture
-	EntityFX Quad, 1
-	CameraRange Cam, 0.01, 100
-	TranslateEntity Cam, 1.0 / 2048 ,-1.0 / 2048 ,-1.0
-	EntityParent Quad, Cam, 1
-	
-	Local ScaledGraphicHeight%
-	Local Ratio# = Float(RealGraphicWidth)/Float(RealGraphicHeight)
-	If Ratio>1.76 And Ratio<1.78
-		ScaledGraphicHeight = RealGraphicHeight
-		DebugLog "Not Scaled"
-	Else
-		ScaledGraphicHeight% = Float(RealGraphicWidth)/(16.0/9.0)
-		DebugLog "Scaled: "+ScaledGraphicHeight
-	EndIf
-	
-	Local moviefile$ = "GFX\menu\startup_Undertow"
-	BlitzMovie_Open(moviefile$+".avi") ;Get movie size
-	Local moview = BlitzMovie_GetWidth()
-	Local movieh = BlitzMovie_GetHeight()
-	BlitzMovie_Close()
-	Local image = CreateImage(moview, movieh)
-	Local SplashScreenVideo = BlitzMovie_OpenDecodeToImage(moviefile$+".avi", image, False)
-	SplashScreenVideo = BlitzMovie_Play()
-	Local SplashScreenAudio = StreamSound_Strict(moviefile$+".ogg",SFXVolume,0)
-	Repeat
-		Cls
-		ProjectImage(image, RealGraphicWidth, ScaledGraphicHeight, Quad, Texture)
-		Flip
-	Until (GetKey() Or (Not IsStreamPlaying_Strict(SplashScreenAudio)))
-	StopStream_Strict(SplashScreenAudio)
-	BlitzMovie_Stop()
-	BlitzMovie_Close()
-	FreeImage image
-	
-	Cls
-	Flip
-	
-	moviefile$ = "GFX\menu\startup_TSS"
-	BlitzMovie_Open(moviefile$+".avi") ;Get movie size
-	moview = BlitzMovie_GetWidth()
-	movieh = BlitzMovie_GetHeight()
-	BlitzMovie_Close()
-	image = CreateImage(moview, movieh)
-	SplashScreenVideo = BlitzMovie_OpenDecodeToImage(moviefile$+".avi", image, False)
-	SplashScreenVideo = BlitzMovie_Play()
-	SplashScreenAudio = StreamSound_Strict(moviefile$+".ogg",SFXVolume,0)
-	Repeat
-		Cls
-		ProjectImage(image, RealGraphicWidth, ScaledGraphicHeight, Quad, Texture)
-		Flip
-	Until (GetKey() Or (Not IsStreamPlaying_Strict(SplashScreenAudio)))
-	StopStream_Strict(SplashScreenAudio)
-	BlitzMovie_Stop()
-	BlitzMovie_Close()
-	
-	FreeTexture Texture
-	FreeEntity Quad
-	FreeEntity Cam
-	FreeImage image
-	Cls
-	Flip
-	
+    
+    If GetINIInt("options.ini","options","play startup video") = 0 Then Return
+    
+    Local ScaledGraphicHeight%
+    Local Ratio# = Float(RealGraphicWidth)/Float(RealGraphicHeight)
+    If Ratio > 1.76 And Ratio < 1.78
+        ScaledGraphicHeight = RealGraphicHeight
+        DebugLog "Not Scaled"
+    Else
+        ScaledGraphicHeight = Float(RealGraphicWidth) / (16.0/9.0)
+        DebugLog "Scaled: "+ScaledGraphicHeight
+    EndIf
+    
+    PlayMovieFile("GFX\menu\startup_Undertow", RealGraphicWidth, ScaledGraphicHeight)
+    Cls : Flip
+    PlayMovieFile("GFX\menu\startup_TSS", RealGraphicWidth, ScaledGraphicHeight)
+    
+    Cls : Flip
+    
+End Function
+
+Function PlayMovieFile(file$, w, h)
+    Local movie = OpenMovie(file$ + ".avi")
+    If movie = 0 Then 
+        DebugLog "Failed to open movie: " + file$
+        Return False
+    EndIf
+    
+    ; Local audio = StreamSound_Strict(file$ + ".ogg", SFXVolume, 0)
+    Local skipVideo = False
+    
+    While True
+        Cls
+        
+        ; Check for skip key FIRST
+        If GetKey() <> 0 Or MouseHit(1) Then
+            skipVideo = True
+            Exit
+        EndIf
+        
+        If MoviePlaying(movie) Then
+            DrawMovie(movie, 0, 0, w, h)
+        EndIf
+        
+        Flip
+        
+       ; Local audioPlaying = (audio <> 0) And IsStreamPlaying_Strict(audio)
+        Local moviePlaying = MoviePlaying(movie)
+        
+        If (Not MoviePlaying) Then
+            Exit
+        EndIf
+        
+    Wend
+    
+    If movie <> 0 Then
+        CloseMovie(movie)
+    EndIf
+    
+    Return skipVideo
 End Function
 
 Function ProjectImage(img, w#, h#, Quad%, Texture%)
@@ -12072,6 +12062,6 @@ End Function
 
 
 ;~IDEal Editor Parameters:
-;~F#39#DCC#1618#2413#2B0F
-;~B#11DC#1454#1BF2
+;~F#DCC#1618#2413#2B0F
+;~B#4C8#4D1#4DA#4DD#11DC#1454#1BF2
 ;~C#Blitz3D

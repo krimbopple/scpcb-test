@@ -335,7 +335,16 @@ Function LoadFont_Strict(file$="Tahoma", height=13, bold=0, italic=0, underline=
 	Return tmp
 End Function
 
-
+Function OpenMovie_Strict(File$)
+	Local Tmp%
+	
+	If Tmp = 0
+		If FileType(File) <> 1 Then RuntimeError  "movie.notfound" + File
+		Tmp = OpenMovie(File)
+		If Tmp = 0  Then RuntimeError  "movie.notfound" + File
+	EndIf
+	Return(Tmp)
+End Function
 
 
 
@@ -346,5 +355,5 @@ End Function
 
 
 ;~IDEal Editor Parameters:
-;~F#F#34#3B
+;~F#F
 ;~C#Blitz3D
