@@ -57,7 +57,12 @@ Dim SavedMapsAuthor$(SavedMapsAmount+1)
 
 Global SelectedMap$
 
-LoadSaveGames()
+Global LoadSaveGamesCalled% = False
+
+If Not LoadSaveGamesCalled Then
+    LoadSaveGames()
+    LoadSaveGamesCalled = True
+EndIf
 
 Global CurrLoadGamePage% = 0
 
@@ -197,10 +202,13 @@ Function UpdateMainMenu()
 					EndIf
 				Case 1
 					txt = "LOAD GAME"
-					If temp Then
-						LoadSaveGames()
-						MainMenuTab = 2
-					EndIf
+                    If temp Then
+                        If Not LoadSaveGamesCalled Then
+                            LoadSaveGames()
+                            LoadSaveGamesCalled = True
+                        EndIf
+                        MainMenuTab = 2
+                    EndIf
 				Case 2
 					txt = "OPTIONS"
 					If temp Then MainMenuTab = 3
@@ -539,10 +547,11 @@ Function UpdateMainMenu()
 						RowText("Are you sure you want to delete this save?", x + 20 * MenuScale, y + 15 * MenuScale, 400 * MenuScale, 200 * MenuScale)
 						;AAText(x + 20 * MenuScale, y + 15 * MenuScale, "Are you sure you want to delete this save?")
 						If DrawButton(x + 50 * MenuScale, y + 150 * MenuScale, 100 * MenuScale, 30 * MenuScale, "Yes", False) Then
-							DeleteFile(CurrentDir() + SavePath + SaveMSG + "\save.txt")
-							DeleteDir(CurrentDir() + SavePath + SaveMSG)
-							SaveMSG = ""
-							LoadSaveGames()
+                            DeleteFile(CurrentDir() + SavePath + SaveMSG + "\save.txt")
+                            DeleteDir(CurrentDir() + SavePath + SaveMSG)
+                            SaveMSG = ""
+                            LoadSaveGames()
+                            LoadSaveGamesCalled = True
 						EndIf
 						If DrawButton(x + 250 * MenuScale, y + 150 * MenuScale, 100 * MenuScale, 30 * MenuScale, "No", False) Then
 							SaveMSG = ""

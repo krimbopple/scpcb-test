@@ -1783,10 +1783,10 @@ Type Rooms
 	Field SoundEmitterRange#[MaxRoomEmitters]
 	Field SoundEmitterCHN%[MaxRoomEmitters]
 	
-	Field Lights%[MaxRoomLights]
-	Field LightIntensity#[MaxRoomLights]
+	Field Lights%[MaxRoomLights+1]
+	Field LightIntensity#[MaxRoomLights+1]
 	
-	Field LightSprites%[MaxRoomLights]	
+	Field LightSprites%[MaxRoomLights+1]	
 	
 	Field Objects%[MaxRoomObjects]
 	Field Levers%[11]

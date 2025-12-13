@@ -1785,7 +1785,7 @@ Global LightConeModel
 
 Global ParticleEffect[10]
 
-Const MaxDTextures=9
+Const MaxDTextures=10
 Global DTextures[MaxDTextures]
 
 Global NPC049OBJ, NPC0492OBJ
@@ -8236,7 +8236,7 @@ Function LoadEntities()
 	
 	;NPCtypeD - different models with different textures (loaded using "CopyEntity") - ENDSHN
 	;[Block]
-	For i=1 To MaxDTextures
+	For i=0 To MaxDTextures-1
 		DTextures[i] = CopyEntity(ClassDObj)
 		HideEntity DTextures[i]
 	Next
